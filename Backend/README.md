@@ -140,3 +140,68 @@ The request body must be a JSON object containing the following fields:
 
 ### Notes
 - Ensure that the `Content-Type` header is set to `application/json` when making requests to this endpoint.
+
+## GET /users/profile
+
+### Description
+This endpoint retrieves the profile information of the currently authenticated user.
+
+### Headers
+- `Authorization`: Bearer token (JWT) required
+
+### Response
+
+#### Success
+- **Status Code**: 200 OK
+- **Response Body**:
+  ```json
+  {
+    "_id": "user-id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+  }
+  ```
+
+#### Authentication Error
+- **Status Code**: 401 Unauthorized
+- **Response Body**:
+  ```json
+  {
+    "message": "Authentication required"
+  }
+  ```
+
+## GET /users/logout
+
+### Description
+This endpoint logs out the current user by invalidating their token.
+
+### Headers
+- `Authorization`: Bearer token (JWT) required
+
+### Response
+
+#### Success
+- **Status Code**: 200 OK
+- **Response Body**:
+  ```json
+  {
+    "message": "Logged out"
+  }
+  ```
+
+#### Authentication Error
+- **Status Code**: 401 Unauthorized
+- **Response Body**:
+  ```json
+  {
+    "message": "Authentication required"
+  }
+  ```
+
+### Notes
+- The token will be blacklisted and can no longer be used for authentication
+- The session cookie will be cleared if it exists
